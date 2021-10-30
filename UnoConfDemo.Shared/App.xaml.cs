@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -35,9 +37,24 @@ namespace UnoConfDemo
 
             this.InitializeComponent();
 
+            Container = ConfigureDependencyInjection();
+
 #if HAS_UNO || NETFX_CORE
             this.Suspending += OnSuspending;
 #endif
+        }
+
+        public IServiceProvider Container { get; }
+        IServiceProvider ConfigureDependencyInjection()
+        {
+            // Create new service collection which generates the IServiceProvider
+            var serviceCollection = new ServiceCollection();
+
+            // Register dependencies
+            serviceCollection.AddTransient<IBarCodeReaderService, BarCodeReaderService>();
+
+            // Build the IServiceProvider and return it
+            return serviceCollection.BuildServiceProvider();
         }
 
         /// <summary>
