@@ -22,8 +22,7 @@ namespace UnoConfDemo
 
         private Task ScanBarCode()
         {
-            Debug.WriteLine("Hey, lets scan a bar code?");
-            return Task.CompletedTask;
+            return _barCodeService.ReadBarCode();
         }
     }
 }
