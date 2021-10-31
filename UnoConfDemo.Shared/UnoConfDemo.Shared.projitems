@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\BarCodeReaderService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IBarCodeReaderService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\BarCodeScanner.WASM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">

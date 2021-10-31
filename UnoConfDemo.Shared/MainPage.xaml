@@ -5,7 +5,8 @@
     xmlns:local="using:UnoConfDemo"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:wasm="http://uno.ui/wasm"
+    mc:Ignorable="d wasm">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		
@@ -15,6 +16,11 @@
 
         <Button Content="Scan bar codes now!"
                 Command="{Binding ScanBarCodeCommand}"/>
+
+        <wasm:Border>
+            <local:BarCodeScanner/>
+        </wasm:Border>
+        
         
     </Grid>
 </Page>

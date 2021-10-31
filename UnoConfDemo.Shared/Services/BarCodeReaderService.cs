@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using ZXing;
 using ZXing.Mobile;
 #endif
+#if __WASM__
+using Uno.Foundation;
+#endif
 
 namespace UnoConfDemo
 {
@@ -20,7 +23,9 @@ namespace UnoConfDemo
 
             Debug.Write($"Value Scanned!: {result.Text}");
 #elif __WASM__
-            Debug.Write($"Not implemented with ZXING lib :(");
+            WebAssemblyRuntime.InvokeJS("document.createElement('div')");
+            var html = WebAssemblyRuntime.InvokeJS("document.getElementById('div1')");
+            WebAssemblyRuntime.InvokeJS("alert(\"It works!\");");
 #endif
         }
     }
