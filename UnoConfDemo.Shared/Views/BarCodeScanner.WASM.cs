@@ -7,6 +7,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Uno.Foundation;
 using Uno.UI.Runtime.WebAssembly;
+using Uno.Extensions;
+using System.Diagnostics;
 
 namespace UnoConfDemo
 {
@@ -17,13 +19,20 @@ namespace UnoConfDemo
         public BarCodeScanner()
         {
             this.SetHtmlContent("<video autoplay='true' id='videoElement' width=500px; height=375px;></video>");
+            this.RegisterHtmlCustomEventHandler("BarCodeDetected", OnBarCodeDetected, isDetailJson: false);
 
-            Loaded += (_, _) => AskWebCamPermission();
+
+            Loaded += (_, _) => InitJavascript();
         }
 
-        private void AskWebCamPermission()
+        private void OnBarCodeDetected(object sender, HtmlCustomEventArgs e)
         {
-            string javascript = $@"(function(){{
+            Debug.WriteLine($"Barcode scanned and Invoked from C#! {e.Detail}");
+        }
+
+        private void InitJavascript()
+        {
+            string initHtmlVideoCapturingJs = $@"(function(){{
                 var video = document.querySelector('#videoElement');
                 if (navigator.mediaDevices.getUserMedia) {{
                      navigator.mediaDevices.getUserMedia({{ video: true }})
@@ -31,12 +40,38 @@ namespace UnoConfDemo
                         video.srcObject = stream;
                     }})
                     .catch(function (err0r) {{
-                      alert('COULD NOT FETCH THE MEDIA');
+                        alert('COULD NOT FETCH THE MEDIA');
                     }});
                 }}
             }})();";
 
-            this.ExecuteJavascript(javascript);
+            string initBarCodeScanJs = $@"(function(){{
+                Quagga.init({{
+                    inputStream: {{
+                    name : 'Live',
+                    type: 'LiveStream',
+                    target: document.querySelector('#videoElement')
+                    }},
+                    decoder : {{
+                    readers : ['code_128_reader']
+                    }}
+                }}, function(err) {{
+                    if (err) {{
+                        console.log(err);
+                        return
+                    }}
+                    console.log('Initialization finished. Ready to start');
+                }});
+
+                Quagga.onDetected(function(result) {{
+                    console.log('Barcode Detected: ' + result.codeResult.code);
+                    //invoke C# code.
+                    element.dispatchEvent(new CustomEvent(""BarCodeDetected"", {{detail: result.codeResult.code}}))
+                }});
+            }})();";
+
+            this.ExecuteJavascript(initHtmlVideoCapturingJs);
+            this.ExecuteJavascript(initBarCodeScanJs);
         }
     }
 }

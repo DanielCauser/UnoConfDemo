@@ -24,11 +24,12 @@
   <ItemGroup>
     <None Remove="barcode.jpg" />
     <None Remove="WasmScripts\javascript-barcode-reader.umd.min.js" />
+    <None Remove="WasmScripts\quagga.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WasmCSS\Fonts.css" />
     <EmbeddedResource Include="WasmScripts\AppManifest.js" />
-    <EmbeddedResource Include="WasmScripts\javascript-barcode-reader.umd.min.js" />
+    <EmbeddedResource Include="WasmScripts\quagga.js" />
   </ItemGroup>
   <ItemGroup>
     <LinkerDescriptor Include="LinkerConfig.xml" />
