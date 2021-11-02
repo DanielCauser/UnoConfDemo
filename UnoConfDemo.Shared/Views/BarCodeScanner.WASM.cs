@@ -1,11 +1,7 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿#if __WASM__
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
-using Uno.Foundation;
 using Uno.UI.Runtime.WebAssembly;
 using Uno.Extensions;
 using System.Diagnostics;
@@ -20,7 +16,6 @@ namespace UnoConfDemo
         {
             this.SetHtmlContent("<video autoplay='true' id='videoElement' width=500px; height=375px;></video>");
             this.RegisterHtmlCustomEventHandler("BarCodeDetected", OnBarCodeDetected, isDetailJson: false);
-
 
             Loaded += (_, _) => InitJavascript();
         }
@@ -75,3 +70,4 @@ namespace UnoConfDemo
         }
     }
 }
+#endif
