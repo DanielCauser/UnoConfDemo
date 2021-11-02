@@ -23,7 +23,7 @@ namespace UnoConfDemo
 
             Debug.Write($"Value Scanned!: {result.Text}");
 #elif __WASM__
-            var stuff = WebAssemblyRuntime.InvokeJS("Quagga.start();");
+            WebAssemblyRuntime.InvokeJS("Quagga.start();");
 #endif
         }
     }
