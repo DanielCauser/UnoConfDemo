@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		
         <TextBlock Text="Hello, world!" 
                    Margin="20" 
@@ -15,6 +15,11 @@
 
         <Button Content="Scan bar codes now!"
                 Command="{Binding ScanBarCodeCommand}"/>
-        
-    </Grid>
+
+        <TextBox Text="{Binding BarCodeValue}" 
+                   PlaceholderText="Bar code value here!"
+                   Margin="20" 
+                   FontSize="30" />
+
+    </StackPanel>
 </Page>
