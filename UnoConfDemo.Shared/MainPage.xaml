@@ -8,7 +8,7 @@
     xmlns:wasm="http://uno.ui/wasm"
     mc:Ignorable="d wasm">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		
         <TextBlock Text="Hello, world!" 
                    Margin="20" 
@@ -21,6 +21,10 @@
             <local:BarCodeScanner/>
         </wasm:Border>
         
-        
-    </Grid>
+        <TextBox Text="{Binding BarCodeValue}" 
+                   PlaceholderText="Bar code value here!"
+                   Margin="20" 
+                   FontSize="30" />
+
+    </StackPanel>
 </Page>

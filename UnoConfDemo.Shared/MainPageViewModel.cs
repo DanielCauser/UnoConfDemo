@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,11 +9,19 @@ using System.Windows.Input;
 
 namespace UnoConfDemo
 {
-    public class MainPageViewModel
+    public class MainPageViewModel : ObservableObject
     {
         private readonly IBarCodeReaderService _barCodeService;
 
         public IAsyncRelayCommand ScanBarCodeCommand { get; }
+
+        private string _barCodeValue;
+
+        public string BarCodeValue
+        {
+            get => _barCodeValue;
+            set => SetProperty(ref _barCodeValue, value);
+        }
 
         public MainPageViewModel(IBarCodeReaderService barCodeService)
         {
@@ -20,9 +29,9 @@ namespace UnoConfDemo
             ScanBarCodeCommand = new AsyncRelayCommand(ScanBarCode);
         }
 
-        private Task ScanBarCode()
+        private async Task ScanBarCode()
         {
-            return _barCodeService.ReadBarCode();
+            BarCodeValue = await _barCodeService.ReadBarCode();
         }
     }
 }

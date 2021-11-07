@@ -7,6 +7,6 @@ namespace UnoConfDemo
 {
     public interface IBarCodeReaderService
     {
-        Task ReadBarCode();
+        Task<string> ReadBarCode();
     }
 }

@@ -15,13 +15,14 @@ namespace UnoConfDemo
 {
     public class BarCodeReaderService : IBarCodeReaderService
     {
-        public async Task ReadBarCode()
+        public async Task<string> ReadBarCode()
         {
 #if __ANDROID__ || NETFX_CORE
             var scanner = new MobileBarcodeScanner();
             var result = await scanner.Scan();
 
             Debug.Write($"Value Scanned!: {result.Text}");
+            return result.Text;
 #elif __WASM__
             WebAssemblyRuntime.InvokeJS("Quagga.start();");
 #endif
