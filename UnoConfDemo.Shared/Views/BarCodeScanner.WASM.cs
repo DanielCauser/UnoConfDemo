@@ -5,6 +5,10 @@ using Windows.UI.Xaml.Markup;
 using Uno.UI.Runtime.WebAssembly;
 using Uno.Extensions;
 using System.Diagnostics;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.Messaging;
+using UnoConfDemo.Messages;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace UnoConfDemo
 {
@@ -23,6 +27,10 @@ namespace UnoConfDemo
         private void OnBarCodeDetected(object sender, HtmlCustomEventArgs e)
         {
             Debug.WriteLine($"Barcode scanned and Invoked from C#! {e.Detail}");
+
+            var container = ((App)App.Current).Container;
+            var service = (IMessenger)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(IMessenger));
+            service.Send(new BarcodeChangedMessage(e.Detail));
         }
 
         private void InitJavascript()

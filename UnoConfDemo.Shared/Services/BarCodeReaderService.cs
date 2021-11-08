@@ -25,6 +25,7 @@ namespace UnoConfDemo
             return result.Text;
 #elif __WASM__
             WebAssemblyRuntime.InvokeJS("Quagga.start();");
+            return string.Empty;
 #endif
         }
     }

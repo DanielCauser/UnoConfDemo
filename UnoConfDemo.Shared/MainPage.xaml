@@ -17,14 +17,15 @@
         <Button Content="Scan bar codes now!"
                 Command="{Binding ScanBarCodeCommand}"/>
 
-        <wasm:Border>
-            <local:BarCodeScanner/>
-        </wasm:Border>
         
         <TextBox Text="{Binding BarCodeValue}" 
                    PlaceholderText="Bar code value here!"
                    Margin="20" 
                    FontSize="30" />
+        
+        <wasm:Border>
+            <local:BarCodeScanner/>
+        </wasm:Border>
 
     </StackPanel>
 </Page>

@@ -1,11 +1,13 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using UnoConfDemo.Messages;
 
 namespace UnoConfDemo
 {
@@ -23,10 +25,11 @@ namespace UnoConfDemo
             set => SetProperty(ref _barCodeValue, value);
         }
 
-        public MainPageViewModel(IBarCodeReaderService barCodeService)
+        public MainPageViewModel(IBarCodeReaderService barCodeService, IMessenger Messenger)
         {
             _barCodeService = barCodeService;
             ScanBarCodeCommand = new AsyncRelayCommand(ScanBarCode);
+            Messenger.Register<BarcodeChangedMessage>(this, (_, barcode) => BarCodeValue = barcode.NewBarcodeValue);
         }
 
         private async Task ScanBarCode()
