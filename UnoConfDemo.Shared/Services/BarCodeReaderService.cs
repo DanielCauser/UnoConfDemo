@@ -22,6 +22,7 @@ namespace UnoConfDemo
             return result.Text;
 #elif __WASM__
             Debug.Write($"Not implemented with ZXING lib :(");
+            return string.Empty;
 #endif
         }
     }
