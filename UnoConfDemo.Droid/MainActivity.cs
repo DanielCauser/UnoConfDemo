@@ -13,6 +13,12 @@ namespace UnoConfDemo.Droid
 		)]
 	public class MainActivity : Windows.UI.Xaml.ApplicationActivity
 	{
-	}
+
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+            ZXing.Mobile.MobileBarcodeScanner.Initialize(Application);
+        }
+    }
 }
 

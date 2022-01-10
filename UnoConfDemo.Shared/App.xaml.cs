@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,6 +29,11 @@ namespace UnoConfDemo
         private Window _window;
 
         /// <summary>
+        /// Gets the current <see cref="App"/> instance in use
+        /// </summary>
+        public new static App Current => (App)Application.Current;
+
+        /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
@@ -35,9 +43,25 @@ namespace UnoConfDemo
 
             this.InitializeComponent();
 
+            Container = ConfigureDependencyInjection();
+
 #if HAS_UNO || NETFX_CORE
             this.Suspending += OnSuspending;
 #endif
+        }
+
+        public IServiceProvider Container { get; }
+        IServiceProvider ConfigureDependencyInjection()
+        {
+            // Create new service collection which generates the IServiceProvider
+            var serviceCollection = new ServiceCollection();
+
+            // Register dependencies
+            serviceCollection.AddTransient<IBarCodeReaderService, BarCodeReaderService>()
+                .AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
+
+            // Build the IServiceProvider and return it
+            return serviceCollection.BuildServiceProvider();
         }
 
         /// <summary>

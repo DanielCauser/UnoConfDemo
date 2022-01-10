@@ -5,9 +5,27 @@
     xmlns:local="using:UnoConfDemo"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:wasm="http://uno.ui/wasm"
+    mc:Ignorable="d wasm">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<TextBlock Text="Hello, world!" Margin="20" FontSize="30" />
-    </Grid>
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		
+        <TextBlock Text="Hello, world!" 
+                   Margin="20" 
+                   FontSize="30" />
+
+        <Button Content="Scan bar codes now!"
+                Command="{Binding ScanBarCodeCommand}"/>
+
+        
+        <TextBox Text="{Binding BarCodeValue}" 
+                   PlaceholderText="Bar code value here!"
+                   Margin="20" 
+                   FontSize="30" />
+        
+        <wasm:Border>
+            <local:BarCodeScanner/>
+        </wasm:Border>
+
+    </StackPanel>
 </Page>

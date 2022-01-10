@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace UnoConfDemo
         public MainPage()
         {
             this.InitializeComponent();
+            var container = ((App)App.Current).Container;
+            DataContext = ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(MainPageViewModel));
         }
     }
 }

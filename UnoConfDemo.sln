@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoConfDemo.iOS", "UnoConfD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoConfDemo.UWP", "UnoConfDemo.UWP\UnoConfDemo.UWP.csproj", "{B446B032-72B1-4347-AA92-A6EB03394EC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoConfDemo.Wasm", "UnoConfDemo.Wasm\UnoConfDemo.Wasm.csproj", "{2466E9A3-2CA6-42BF-A71A-539CFA2CFDEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoConfDemo.Wasm", "UnoConfDemo.Wasm\UnoConfDemo.Wasm.csproj", "{2466E9A3-2CA6-42BF-A71A-539CFA2CFDEE}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
